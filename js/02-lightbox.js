@@ -3,38 +3,67 @@ import { galleryItems } from './gallery-items.js';
 
 console.log(galleryItems);
 
-const divEl = document.querySelector('.gallery');
-const cardsItem = createElement(galleryItems);
+// const divEl = document.querySelector('.gallery');
+// const cardsItem = createElement(galleryItems);
 
-//  divEl.classList.add('gallery');
-divEl.insertAdjacentHTML('beforeend', cardsItem);
+// //  divEl.classList.add('gallery');
+// divEl.insertAdjacentHTML('beforeend', cardsItem);
 
-function createElement(galleryItems) {
-  return galleryItems
+// function createElement(galleryItems) {
+//   return galleryItems
+//     .map(({ preview, original, description }) => {
+//       return `
+//     <li><a class="gallery__item" href="${original}" alt="${description}">
+//     <img class="gallery__image" src="${preview}" alt="${description}"/>
+//     </a></li>`;
+//     })
+//     .join('');
+// }
+
+// divEl.addEventListener('click', clickOpenModal);
+
+// function clickOpenModal(event) {
+//   event.preventDefault();
+
+//   if (!event.target.classList.contains('gallery__image')) {
+//     return;
+//   }
+
+//     const clickOpenModalEl = event.target;
+//   const indexGalleryItems = galleryItems.findIndex(
+//     option => option.description === clickOpenModalEl.alt,
+//   );
+
+//   let gallery = new SimpleLightbox('.gallery a');
+
+//     gallery.on('show.simplelightbox', function () {
+//        captionsData: 'alt', captionPosition: 'bottom', captionDelay: 250
+//     });
+
+const galleryContainer = document.querySelector('.gallery');
+galleryContainer.insertAdjacentHTML(
+  'beforeend',
+  createGalleryItemsMarkup(galleryItems),
+);
+function createGalleryItemsMarkup(items) {
+  return items
     .map(({ preview, original, description }) => {
-      return `
-    <li><a class="gallery__item" href="${original}" alt="${description}">
-    <img class="gallery__image" src="${preview}" alt="${description}"/>
-    </a></li>`;
+      return `<li>
+  <a class="gallery__item" href="${original}">
+    <img
+      class="gallery__image"
+      src="${preview}"
+      alt="${description}"
+    />
+  </a>
+</li>`;
     })
     .join('');
 }
 
-divEl.addEventListener('click', clickOpenModal);
-
-function clickOpenModal(event) {
-  event.preventDefault();
-
-  if (!event.target.classList.contains('gallery__image')) {
-    return;
-  }
-
-  //     const clickOpenModalEl = event.target;
-  //   const indexGalleryItems = galleryItems.findIndex(
-  //     option => option.description === clickOpenModalEl.alt,
-  //   );
-
-  let gallery = new SimpleLightbox('.gallery a');
-
-  gallery.on('show.simplelightbox', function () {});
-}
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionPosition: 'bottom',
+  captionDelay: 250,
+});
+//}
