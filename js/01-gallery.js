@@ -6,8 +6,6 @@ import { galleryItems } from './gallery-items.js';
 const divEl = document.querySelector('.gallery');
 const cardsItem = createLiElement(galleryItems);
 
-
-divEl.classList.add('gallery');
 divEl.insertAdjacentHTML('beforeend', cardsItem);
 
 function createLiElement(galleryItems) {
@@ -29,7 +27,7 @@ function createLiElement(galleryItems) {
 }
 
 divEl.addEventListener('click', clickOpenModal);
-
+const instance = '';
 
 function clickOpenModal(event) {
   event.preventDefault();
@@ -37,43 +35,33 @@ function clickOpenModal(event) {
   if (!event.target.classList.contains('gallery__image')) {
     return;
   }
-    window.addEventListener('keydown', onEscapePress);
+  window.addEventListener('keydown', onEscapePress);
   const clickOpenModalEl = event.target;
   const indexGalleryItems = galleryItems.findIndex(
     option => option.description === clickOpenModalEl.alt,
   );
 
-  const instance = basicLightbox.create(`
-    <div class="modal">
-        <img class="gallery__image" src="${galleryItems[indexGalleryItems].original}"
-        alt="${galleryItems[indexGalleryItems].description}" >
-     </div>
-`); //
+  let instance = basicLightbox.create(`
+    <img class="gallery__image" src="${galleryItems[indexGalleryItems].original}"
+     alt="${galleryItems[indexGalleryItems].description}">`);
 
-    instance.show();
- 
-    const closeElModal = document.querySelector('.basicLightbox');
-    closeElModal.addEventListener('click', onCloseModal);
+  instance.show();
+
+  const closeElModal = document.querySelector('.basicLightbox');
+  closeElModal.addEventListener('click', onCloseModal);
 }
 
-
 function onCloseModal() {
-   
   window.removeEventListener('keydown', onEscapePress);
-  const modalImage = document.querySelector('.modal > .gallery__image');
-    modalImage.remove();
-    const closeElModal = document.querySelector('.basicLightbox');
-     closeElModal.remove();
+  instance.close;
+  const closeElModal = document.querySelector('.basicLightbox');
+  closeElModal.remove();
 }
 
 function onEscapePress(event) {
-
-   if (event.code === 'Escape') {
-      const closeEl = document.querySelector('.basicLightbox');
-       closeEl.remove();
-        window.removeEventListener('keydown', onEscapePress);
-   }
-    
+  if (event.code === 'Escape') {
+    const closeEl = document.querySelector('.basicLightbox');
+    closeEl.remove();
+    window.removeEventListener('keydown', onEscapePress);
+  }
 }
-
-
