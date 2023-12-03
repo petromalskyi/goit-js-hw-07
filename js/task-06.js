@@ -19,14 +19,13 @@ function onInput(event) {
 
 function onClickCreate(event) {
   if (amount >= 1 && amount <= 100) {
-    reset();
+    inputEl.value = '';
     createBoxes(amount);
     amount = 0;
   }
 }
 
 function createBoxes(amount) {
-  console.log('createbox', amount);
   onClickDestroy();
   let markUp = '';
   let sizeBox = 30;
@@ -36,20 +35,15 @@ function createBoxes(amount) {
     )}px; background-color: ${getRandomHexColor()}"></div>`;
     sizeBox += 10;
   }
-  divEl.insertAdjacentHTML('afterbegin', markUp);
+  divEl.innerHTML = markUp;
 }
 
 function onClickDestroy(event) {
   divEl.innerHTML = '';
-  inputEl.value = '';
 }
 
 function getRandomHexColor() {
   return `#${Math.floor(Math.random() * 16777215)
     .toString(16)
     .padStart(6, 0)}`;
-}
-
-function reset() {
-  inputEl.value = '';
 }
